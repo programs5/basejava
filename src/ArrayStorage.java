@@ -1,30 +1,48 @@
 /**
  * Array based storage for Resumes
  */
+
 public class ArrayStorage {
+
     Resume[] storage = new Resume[10000];
 
     void clear() {
+
     }
 
     void save(Resume r) {
+
     }
 
     Resume get(String uuid) {
-        return null;
+
+        Resume st = null;
+
+        for(Resume item : storage){
+
+            if(item.uuid == uuid) {
+                System.out.println(item.toString());
+                st = item;
+                break;
+            }
+        }
+        return st;
     }
 
     void delete(String uuid) {
+
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
+
         return new Resume[0];
     }
 
     int size() {
+
         return 0;
     }
 }
