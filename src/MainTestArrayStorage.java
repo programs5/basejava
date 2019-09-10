@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Test for your ArrayStorage implementation
  */
@@ -6,6 +8,9 @@ public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
+
+        //int[] removed = ArrayUtils.removeElement(intArray, 3);//create a new array
+        //System.out.println(Arrays.toString(removed));
 
         Resume r1 = new Resume();
         r1.uuid = "uuid1";
@@ -19,17 +24,29 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.save(r3);
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.uuid));
+        System.out.println("Get r2: " + ARRAY_STORAGE.get(r2.uuid));
+        System.out.println("Get r3: " + ARRAY_STORAGE.get(r3.uuid));
+
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
-        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+        //System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+
+
 
         printAll();
+
+
+        /*
         ARRAY_STORAGE.delete(r1.uuid);
         printAll();
+
+
+
         ARRAY_STORAGE.clear();
         printAll();
 
         System.out.println("Size: " + ARRAY_STORAGE.size());
+        */
     }
 
     static void printAll() {
