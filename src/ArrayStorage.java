@@ -11,19 +11,20 @@ public class ArrayStorage {
 
     // полностью очищаем хранилище
     void clear() {
-        for(int i= 0; i < storage.length; i++){
-            if(storage[i] == null)
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i] == null)
                 break;
-            else
+            else {
                 storage[i] = null;
+                size--;
+            }
         }
-        size = 0;
     }
 
     // добавляем новый элемент в хранилище
     void save(Resume r) {
         // если хранилище заполнено, гененрируем ошибку
-        if(size == 10000)
+        if (size == 10000)
             throw new ArrayIndexOutOfBoundsException();
         // добавляем элемент
         storage[size] = r;
@@ -33,13 +34,12 @@ public class ArrayStorage {
     // возвращаем элемент по заданному uuid
     Resume get(String uuid) {
         int idx = -1;
-        for(int i= 0; i < storage.length; i++){
+        for (int i = 0; i < storage.length; i++) {
             // если перебрали все элементы и не нашли нужного, генерируем ошибку
-            if(storage[i] == null) {
+            if (storage[i] == null) {
                 throw new NoSuchElementException(uuid);
-            }
-            else if(storage[i].uuid == uuid) {
-                idx= i;
+            } else if (storage[i].uuid == uuid) {
+                idx = i;
                 break;
             }
         }
@@ -49,22 +49,22 @@ public class ArrayStorage {
     // удаляем элемент с заданным uuid из очереди
     void delete(String uuid) {
         boolean isDeleted = false;
-        for(int i= 0; i < storage.length; i++){
+        for (int i = 0; i < storage.length; i++) {
             // если перебрали все элементы и не нашли нужного, генерируем ошибку
-            if(!isDeleted && storage[i] == null) {
+            if (!isDeleted && storage[i] == null) {
                 throw new NoSuchElementException(uuid);
             }
             // если удалили элемент и больше нет элементов, завершаем
-            if(isDeleted && storage[i] == null ){
+            if (isDeleted && storage[i] == null) {
                 break;
             }
             // если удалили и есть еще элементы, смещаем их на место удаленного, закрываем все дырки
-            if(isDeleted && storage[i] != null){
-                storage[i-1] = storage[i];
+            if (isDeleted && storage[i] != null) {
+                storage[i - 1] = storage[i];
                 storage[i] = null;
             }
             // ищем элемент и если совпадает удаляем его
-            if(!isDeleted && storage[i] != null) {
+            if (!isDeleted && storage[i] != null) {
                 if (storage[i].uuid == uuid) {
                     storage[i] = null;
                     isDeleted = true;
@@ -79,8 +79,8 @@ public class ArrayStorage {
      */
     Resume[] getAll() {
         Resume[] resumes = new Resume[size];
-        if(size > 0){
-            for(int i= 0; i < size; i++) {
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
                 resumes[i] = new Resume();
                 resumes[i].uuid = storage[i].uuid;
             }
