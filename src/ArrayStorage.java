@@ -1,5 +1,3 @@
-import java.util.NoSuchElementException;
-
 /**
  * Array based storage for Resumes
  */
@@ -64,7 +62,7 @@ public class ArrayStorage {
         return resumes;
     }
 
-    // возвращем количество элементов хранилища
+    // возвращаем количество элементов хранилища
     int size() {
         return size;
     }

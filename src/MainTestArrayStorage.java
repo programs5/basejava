@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Test for your ArrayStorage implementation
  */

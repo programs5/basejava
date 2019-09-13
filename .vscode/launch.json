@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MainArray",
+            "request": "launch",
+            "mainClass": "MainArray",
+            "projectName": "basejava_1d034a19"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MainTestArrayStorage",
+            "request": "launch",
+            "mainClass": "MainTestArrayStorage",
+            "projectName": "basejava_1d034a19"
+        }
+    ]
+}
