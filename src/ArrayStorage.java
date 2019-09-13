@@ -7,7 +7,7 @@ public class ArrayStorage {
     Resume[] storage = new Resume[10000];
     int size = 0;
 
-    // полностью очищаем хранилище
+    // CLEAR
     void clear() {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
@@ -15,17 +15,56 @@ public class ArrayStorage {
         size = 0;
     }
 
-    // добавляем новый элемент в хранилище
+    // FIND
+    int find(String uid) {
+        for (int i = 0; i < size; i++) {
+            if(storage[i].uuid == uid) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // UPDATE
+    void update(Resume r) {
+        int idx = find(r.uuid);
+        if(idx >= 0)
+            storage[idx] = r;
+        else
+            System.out.println("UpdateError: Is No Resume Found");
+    }
+
+    // SAVE
     void save(Resume r) {
         if (size == storage.length) {
-            System.out.println("ArrayIndexOutOfBounds");
+            System.out.println("Error: Array Index Out Of Bounds");
+            return;
+        }
+        int idx = find(r.uuid);
+        if(idx >= 0) {
+            System.out.println("SaveError: Resume Already Present");
             return;
         }
         storage[size] = r;
         size++;
+        /*
+        // TODO check if resume not present (out error message)
+        if (size == storage.length) {
+            System.out.println("Error: Array Index Out Of Bounds");
+            return;
+        }
+        for (int i = 0; i < size; i++) {
+            if (storage[i] == r) {
+                System.out.println("SaveError: Resume Already Present");
+                return;
+            }
+        }
+        storage[size] = r;
+        size++;
+        */
     }
 
-    // возвращаем элемент по заданному uuid
+    // GET
     Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid == uuid) {
@@ -35,25 +74,31 @@ public class ArrayStorage {
         return null;
     }
 
-    // удаляем элемент с заданным uuid из очереди
+    // DELETE
     void delete(String uuid) {
-        boolean isDeleted = false;
-        int s = size;
-        for (int i = 0; i < s; i++) {
-            if (isDeleted) {
-                storage[i - 1] = storage[i];
-                storage[i] = null;
-            } else if (storage[i].uuid == uuid) {
-                storage[i] = null;
-                isDeleted = true;
+        int idx = find(uuid);
+        if(idx >= 0) {
+            storage[idx] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+            return;
+        }
+        System.out.println("DeleteError: Is No Resume Found");
+        /*
+        // TODO check if resume present (out error message)
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid == uuid) {
+                storage[i] = storage[size - 1];
+                storage[size - 1] = null;
                 size--;
+                return;
             }
         }
+        System.out.println("DeleteError: Is No Resume Found");
+        */
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
+    // GET ALL
     Resume[] getAll() {
         Resume[] resumes = new Resume[size];
         for (int i = 0; i < size; i++) {
@@ -62,7 +107,7 @@ public class ArrayStorage {
         return resumes;
     }
 
-    // возвращаем количество элементов хранилища
+    // SIZE
     int size() {
         return size;
     }
