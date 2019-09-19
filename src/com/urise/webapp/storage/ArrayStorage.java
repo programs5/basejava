@@ -15,9 +15,9 @@ public class ArrayStorage {
 
     // найти заданное резюме в хранилище
     public void update(Resume resume) {
-        int idx = find(resume.uuid);
+        int idx = find(resume.getUuid());
         if (idx == -1) {
-            System.out.println("Resume is not found uuid=" + resume.uuid);
+            System.out.println("Resume is not found uuid=" + resume.getUuid());
         } else {
             storage[idx] = resume;
         }
@@ -27,8 +27,8 @@ public class ArrayStorage {
     public void save(Resume resume) {
         if (size == storage.length) {
             System.out.println("Resume storage out of bounds");
-        } else if (find(resume.uuid) >= 0) {
-            System.out.println("Resume already present uuid=" + resume.uuid);
+        } else if (find(resume.getUuid()) >= 0) {
+            System.out.println("Resume already present uuid=" + resume.getUuid());
         } else {
             storage[size] = resume;
             size++;
@@ -71,7 +71,7 @@ public class ArrayStorage {
     // найти резюме в хранилище по заданному uuid
     private int find(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return i;
             }
         }
