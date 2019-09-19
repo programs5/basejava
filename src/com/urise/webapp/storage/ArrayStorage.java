@@ -9,9 +9,7 @@ public class ArrayStorage {
 
     // удалить все резюме в хранилище
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
@@ -19,7 +17,7 @@ public class ArrayStorage {
     public void update(Resume resume) {
         int idx = find(resume.uuid);
         if (idx == -1) {
-            System.out.println("UpdateError: Is Not Resume Found");
+            System.out.println("Resume is not found uuid=" + resume.uuid);
         } else {
             storage[idx] = resume;
         }
@@ -28,9 +26,9 @@ public class ArrayStorage {
     // сохранить новое резюме в хранилище
     public void save(Resume resume) {
         if (size == storage.length) {
-            System.out.println("Error: Array Index Out Of Bounds");
+            System.out.println("Resume storage out of bounds");
         } else if (find(resume.uuid) >= 0) {
-            System.out.println("SaveError: Resume Already Present");
+            System.out.println("Resume already present uuid=" + resume.uuid);
         } else {
             storage[size] = resume;
             size++;
@@ -41,6 +39,7 @@ public class ArrayStorage {
     public Resume get(String uuid) {
         int idx = find(uuid);
         if (idx == -1) {
+            System.out.println("Resume is not found uuid=" + uuid);
             return null;
         } else {
             return storage[idx];
@@ -51,7 +50,7 @@ public class ArrayStorage {
     public void delete(String uuid) {
         int idx = find(uuid);
         if (idx == -1) {
-            System.out.println("DeleteError: Is No Resume Found");
+            System.out.println("Resume is not found uuid=" + uuid);
         } else {
             storage[idx] = storage[size - 1];
             storage[size - 1] = null;
