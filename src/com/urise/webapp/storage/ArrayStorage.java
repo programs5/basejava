@@ -1,6 +1,7 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
+
 import java.util.Arrays;
 
 public class ArrayStorage {
@@ -16,9 +17,7 @@ public class ArrayStorage {
     // найти заданное резюме в хранилище
     public void update(Resume resume) {
         int idx = find(resume.getUuid());
-        if (idx == -1) {
-            System.out.println("Resume is not found uuid=" + resume.getUuid());
-        } else {
+        if (idx >= 0) {
             storage[idx] = resume;
         }
     }
@@ -39,7 +38,6 @@ public class ArrayStorage {
     public Resume get(String uuid) {
         int idx = find(uuid);
         if (idx == -1) {
-            System.out.println("Resume is not found uuid=" + uuid);
             return null;
         } else {
             return storage[idx];
@@ -49,9 +47,7 @@ public class ArrayStorage {
     // удалить резюме из хранилища по заданному uuid
     public void delete(String uuid) {
         int idx = find(uuid);
-        if (idx == -1) {
-            System.out.println("Resume is not found uuid=" + uuid);
-        } else {
+        if (idx >= 0) {
             storage[idx] = storage[size - 1];
             storage[size - 1] = null;
             size--;
@@ -75,6 +71,7 @@ public class ArrayStorage {
                 return i;
             }
         }
+        System.out.println("Resume is not found uuid=" + uuid);
         return -1;
     }
 }
