@@ -1,3 +1,7 @@
+package com.urise.webapp;
+
+import com.urise.webapp.model.Resume;
+import com.urise.webapp.storage.ArrayStorage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -56,7 +60,7 @@ public class MainArray {
         }
     }
 
-    static void printAll() {
+    private static void printAll() {
         Resume[] all = ARRAY_STORAGE.getAll();
         System.out.println("----------------------------");
         if (all.length == 0) {

@@ -1,12 +1,12 @@
-/**
- * Test for your ArrayStorage implementation
- */
-public class MainTestArrayStorage {
+package com.urise.webapp;
 
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+import com.urise.webapp.model.Resume;
+import com.urise.webapp.storage.ArrayStorage;
+
+public class MainTestArrayStorage {
+    private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
-
         Resume r1 = new Resume();
         r1.uuid = "uuid1";
         Resume r2 = new Resume();
@@ -39,12 +39,10 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.clear();
         printAll();
 
-
         System.out.println("Size: " + ARRAY_STORAGE.size());
     }
 
-    static void printAll() {
-
+    private static void printAll() {
         System.out.println("\nGet All");
         for (Resume r : ARRAY_STORAGE.getAll()) {
             System.out.println(r);
