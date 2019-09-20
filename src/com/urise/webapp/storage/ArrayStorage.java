@@ -14,12 +14,12 @@ public class ArrayStorage {
         size = 0;
     }
 
-    // найти заданное резюме в хранилище
+    // обновить заданное резюме в хранилище
     public void update(Resume resume) {
         int idx = find(resume.getUuid());
         if (idx == -1) {
             System.out.println("Resume is not found uuid=" + resume.getUuid());
-        } else if (idx >= 0) {
+        } else {
             storage[idx] = resume;
         }
     }
@@ -42,9 +42,8 @@ public class ArrayStorage {
         if (idx == -1) {
             System.out.println("Resume is not found uuid=" + uuid);
             return null;
-        } else {
-            return storage[idx];
         }
+        return storage[idx];
     }
 
     // удалить резюме из хранилища по заданному uuid
@@ -52,7 +51,7 @@ public class ArrayStorage {
         int idx = find(uuid);
         if (idx == -1) {
             System.out.println("Resume is not found uuid=" + uuid);
-        } else if (idx >= 0) {
+        } else {
             storage[idx] = storage[size - 1];
             storage[size - 1] = null;
             size--;
@@ -69,7 +68,7 @@ public class ArrayStorage {
         return size;
     }
 
-    // найти резюме в хранилище по заданному uuid
+    // вернуть индекс резюме по заданному uuid
     private int find(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
