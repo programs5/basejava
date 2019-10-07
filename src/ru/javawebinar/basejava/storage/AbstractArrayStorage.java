@@ -30,6 +30,26 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
+    // сохранить новое резюме в хранилище
+    public void save(Resume resume) {
+        if (size >= STORAGE_LIMIT) {
+            System.out.println("Resume storage out of bounds");
+        } else if (getIndex(resume.getUuid()) >= 0) {
+            System.out.println("Resume already present uuid=" + resume.getUuid());
+        } else {
+            saveSpecial(resume);
+        }
+    }
+
+    // удалить резюме из хранилища по заданному uuid
+    public void delete(String uuid) {
+        if (getIndex(uuid) < 0) {
+            System.out.println("Resume is not found uuid=" + uuid);
+        } else {
+            deleteSpecial(uuid);
+        }
+    }
+
     // вернуть резюме из хранилища по заданному uuid
     public Resume get(String uuid) {
         int idx = getIndex(uuid);
@@ -44,6 +64,10 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
+
+    protected abstract void saveSpecial(Resume resume);
+
+    protected abstract void deleteSpecial(String uuid);
 
     // вернуть индекс резюме по заданному uuid
     protected abstract int getIndex(String uuid);

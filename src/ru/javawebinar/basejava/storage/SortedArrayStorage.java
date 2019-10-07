@@ -7,17 +7,8 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void save(Resume resume) {
-        if (size == STORAGE_LIMIT) {
-            System.out.println("Resume storage out of bounds");
-            return;
-        }
-        int idx = getIndex(resume.getUuid());
-        if (idx >= 0) {
-            System.out.println("Resume already present uuid=" + resume.getUuid());
-            return;
-        }
-        idx = Math.abs(idx);
+    protected void saveSpecial(Resume resume) {
+        int idx = Math.abs(getIndex(resume.getUuid()));
         if (size > 0) {
             System.arraycopy(storage, idx - 1, storage, idx, size - idx + 1);
         }
@@ -26,12 +17,9 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    public void delete(String uuid) {
+    protected void deleteSpecial(String uuid) {
         int idx = getIndex(uuid);
-        if (idx < 0) {
-            System.out.println("Resume is not found uuid=" + uuid);
-            return;
-        } else if (idx < size - 1) {
+        if (idx < size - 1) {
             System.arraycopy(storage, idx + 1, storage, idx, size - idx - 1);
         }
         storage[size - 1] = null;
