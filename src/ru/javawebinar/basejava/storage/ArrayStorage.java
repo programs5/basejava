@@ -10,8 +10,8 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void deleteSpecial(String uuid) {
-        storage[getIndex(uuid)] = storage[size - 1];
+    protected void deleteSpecial(String uuid, int idx) {
+        storage[idx] = storage[size - 1];
     }
 
     @Override

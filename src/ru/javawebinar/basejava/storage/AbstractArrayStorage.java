@@ -44,10 +44,11 @@ public abstract class AbstractArrayStorage implements Storage {
 
     // удалить резюме из хранилища по заданному uuid
     public void delete(String uuid) {
-        if (getIndex(uuid) < 0) {
+        int idx = getIndex(uuid);
+        if (idx < 0) {
             System.out.println("Resume is not found uuid=" + uuid);
         } else {
-            deleteSpecial(uuid);
+            deleteSpecial(uuid, idx);
             storage[size - 1] = null;
             size--;
         }
@@ -70,7 +71,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract void saveSpecial(Resume resume);
 
-    protected abstract void deleteSpecial(String uuid);
+    protected abstract void deleteSpecial(String uuid, int idx);
 
     // вернуть индекс резюме по заданному uuid
     protected abstract int getIndex(String uuid);
