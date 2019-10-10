@@ -38,6 +38,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Resume already present uuid=" + resume.getUuid());
         } else {
             saveSpecial(resume);
+            size++;
         }
     }
 
@@ -47,6 +48,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Resume is not found uuid=" + uuid);
         } else {
             deleteSpecial(uuid);
+            size--;
         }
     }
 
