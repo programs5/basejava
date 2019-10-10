@@ -34,10 +34,13 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume resume) {
         if (size >= STORAGE_LIMIT) {
             System.out.println("Resume storage out of bounds");
-        } else if (getIndex(resume.getUuid()) >= 0) {
+            return;
+        }
+        int idx = getIndex(resume.getUuid());
+        if (idx >= 0) {
             System.out.println("Resume already present uuid=" + resume.getUuid());
         } else {
-            saveSpecial(resume);
+            saveSpecial(resume, Math.abs(idx));
             size++;
         }
     }
@@ -69,7 +72,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    protected abstract void saveSpecial(Resume resume);
+    protected abstract void saveSpecial(Resume resume, int idx);
 
     protected abstract void deleteSpecial(String uuid, int idx);
 
