@@ -40,7 +40,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (idx >= 0) {
             System.out.println("Resume already present uuid=" + resume.getUuid());
         } else {
-            saveSpecial(resume, Math.abs(idx));
+            saveSpecial(resume, idx);
             size++;
         }
     }
