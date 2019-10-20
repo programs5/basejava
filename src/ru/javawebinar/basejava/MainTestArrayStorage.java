@@ -1,7 +1,6 @@
 package ru.javawebinar.basejava;
 
 import ru.javawebinar.basejava.model.Resume;
-import ru.javawebinar.basejava.storage.ArrayStorage;
 import ru.javawebinar.basejava.storage.SortedArrayStorage;
 import ru.javawebinar.basejava.storage.Storage;
 
@@ -11,14 +10,10 @@ public class MainTestArrayStorage {
 
     public static void main(String[] args) {
 
-        Resume r1 = new Resume();
-        r1.setUuid("uuid1");
-        Resume r2 = new Resume();
-        r2.setUuid("uuid2");
-        Resume r3 = new Resume();
-        r3.setUuid("uuid3");
-        Resume r4 = new Resume();
-        r4.setUuid("uuid4");
+        Resume r1 = new Resume("uuid1");
+        Resume r2 = new Resume("uuid2");
+        Resume r3 = new Resume("uuid3");
+        Resume r4 = new Resume("uuid4");
 
         System.out.println("Size: " + STORAGE.size());
 
@@ -34,10 +29,10 @@ public class MainTestArrayStorage {
         System.out.println("Get r2: " + STORAGE.get(r2.getUuid()));
         System.out.println("Get r3: " + STORAGE.get(r3.getUuid()));
         System.out.println("Get r4: " + STORAGE.get(r4.getUuid()));
-        System.out.println("Get dummy: " + STORAGE.get("dummy"));
 
-        Resume rU = new Resume();
-        rU.setUuid("uuid2");
+     //   System.out.println("Get dummy: " + STORAGE.get("dummy"));
+
+        Resume rU = new Resume("uuid2");
         STORAGE.update(rU);
         printAll();
 
@@ -45,7 +40,7 @@ public class MainTestArrayStorage {
         printAll();
         System.out.println("Size: " + STORAGE.size());
 
-        STORAGE.delete("dummy");
+        //     STORAGE.delete("dummy");
 
         STORAGE.clear();
         printAll();

@@ -1,5 +1,8 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
+import ru.javawebinar.basejava.exception.NotExistStorageException;
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
@@ -24,7 +27,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume resume) {
         int idx = getIndex(resume.getUuid());
         if (idx < 0) {
-            System.out.println("Resume is not found uuid=" + resume.getUuid());
+            throw new NotExistStorageException(resume.getUuid());
         } else {
             storage[idx] = resume;
         }
@@ -33,36 +36,32 @@ public abstract class AbstractArrayStorage implements Storage {
     // сохранить новое резюме в хранилище
     public void save(Resume resume) {
         if (size >= STORAGE_LIMIT) {
-            System.out.println("Resume storage out of bounds");
-            return;
+            throw new StorageException("Storage overflow", resume.getUuid());
         }
         int idx = getIndex(resume.getUuid());
         if (idx >= 0) {
-            System.out.println("Resume already present uuid=" + resume.getUuid());
-        } else {
-            saveSpecial(resume, idx);
-            size++;
+            throw new ExistStorageException(resume.getUuid());
         }
+        saveSpecial(resume, idx);
+        size++;
     }
 
     // удалить резюме из хранилища по заданному uuid
     public void delete(String uuid) {
         int idx = getIndex(uuid);
         if (idx < 0) {
-            System.out.println("Resume is not found uuid=" + uuid);
-        } else {
-            deleteSpecial(uuid, idx);
-            storage[size - 1] = null;
-            size--;
+            throw new NotExistStorageException(uuid);
         }
+        deleteSpecial(uuid, idx);
+        storage[size - 1] = null;
+        size--;
     }
 
     // вернуть резюме из хранилища по заданному uuid
     public Resume get(String uuid) {
         int idx = getIndex(uuid);
         if (idx < 0) {
-            System.out.println("Resume is not found uuid=" + uuid);
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[idx];
     }
