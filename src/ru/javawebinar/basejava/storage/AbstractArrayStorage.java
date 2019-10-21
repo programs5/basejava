@@ -28,9 +28,8 @@ public abstract class AbstractArrayStorage implements Storage {
         int idx = getIndex(resume.getUuid());
         if (idx < 0) {
             throw new NotExistStorageException(resume.getUuid());
-        } else {
-            storage[idx] = resume;
         }
+        storage[idx] = resume;
     }
 
     // сохранить новое резюме в хранилище
