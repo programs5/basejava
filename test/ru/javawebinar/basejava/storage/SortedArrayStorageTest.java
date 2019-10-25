@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 public class SortedArrayStorageTest extends AbstractArrayStorageTest {
 
     @Override
-    protected Storage createStorage() {
+    protected Storage getStorage() {
         return new SortedArrayStorage();
     }
 }
