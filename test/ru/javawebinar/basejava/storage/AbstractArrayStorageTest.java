@@ -10,8 +10,6 @@ import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractArrayStorageTest {
     private Storage storage;
-    private static final int COUNT_RESUME = 3;
-    private static final int STORAGE_LIMIT = 10_000;
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
@@ -35,7 +33,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void size() throws Exception {
-        Assert.assertEquals(COUNT_RESUME, storage.size());
+        Assert.assertEquals(3, storage.size());
     }
 
     @Test
@@ -49,7 +47,7 @@ public abstract class AbstractArrayStorageTest {
         Resume oldResume = storage.get(UUID_1);
         storage.update(new Resume(UUID_1));
         Assert.assertNotSame(oldResume, storage.get(UUID_1));
-        Assert.assertEquals(COUNT_RESUME, storage.size());
+        Assert.assertEquals(3, storage.size());
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -59,46 +57,29 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void save() throws Exception {
-        try {
-            storage.save(RESUME_DUMMY);
-            Assert.assertEquals(COUNT_RESUME + 1, storage.size());
-        } catch (StorageException e) {
-            storage.delete(UUID_1);
-            storage.save(RESUME_DUMMY);
-            Assert.assertEquals(COUNT_RESUME, storage.size());
-        }
+        storage.save(RESUME_DUMMY);
+        Assert.assertEquals(4, storage.size());
         Assert.assertSame(RESUME_DUMMY, storage.get(UUID_DUMMY));
     }
 
     @Test(expected = ExistStorageException.class)
     public void saveExist() throws Exception {
-        try {
-            storage.save(RESUME_UUID_3);
-        } catch (StorageException e) {
-            storage.delete(UUID_1);
-            storage.save(RESUME_UUID_3);
-        }
+        storage.save(RESUME_UUID_1);
     }
 
-    @Test
+    @Test(expected = StorageException.class)
     public void saveOverflow() throws Exception {
-        storage.clear();
-        try {
-            for (int n = 1; n <= STORAGE_LIMIT + 1; n++) {
-                storage.save(new Resume("uuid_" + n));
-            }
-            Assert.fail("StorageException not thrown");
-        } catch (StorageException e) {
-            Assert.assertTrue(true);
-        } catch (Exception e) {
-            Assert.fail("Unknown Exception thrown");
+        for (int i = storage.size() + 1; i <= storage.STORAGE_LIMIT; i++) {
+            storage.save(new Resume("uuid" + i));
         }
+        storage.save(new Resume("uuid" + storage.STORAGE_LIMIT + 1));
+        Assert.fail("StorageException not thrown");
     }
 
     @Test
     public void delete() throws Exception {
         storage.delete(UUID_3);
-        Assert.assertEquals(COUNT_RESUME - 1, storage.size());
+        Assert.assertEquals(2, storage.size());
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -111,7 +92,7 @@ public abstract class AbstractArrayStorageTest {
         for (Resume resume : storage.getAll()) {
             Assert.assertSame(resume, storage.get(resume.getUuid()));
         }
-        Assert.assertEquals(COUNT_RESUME, storage.getAll().length);
+        Assert.assertEquals(3, storage.getAll().length);
     }
 
     @Test
