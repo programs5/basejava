@@ -10,6 +10,7 @@ import java.util.Arrays;
 public abstract class AbstractArrayStorage implements Storage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
+    protected static final int STORAGE_LIMIT = 10_000;
 
     // вернуть количество резюме в хранилище
     public int size() {

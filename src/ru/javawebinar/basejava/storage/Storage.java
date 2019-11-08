@@ -4,8 +4,6 @@ import ru.javawebinar.basejava.model.Resume;
 
 public interface Storage {
 
-    int STORAGE_LIMIT = 10_000;
-
     void clear();
 
     void update(Resume resume);
